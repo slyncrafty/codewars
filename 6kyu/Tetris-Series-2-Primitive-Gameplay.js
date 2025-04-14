@@ -90,64 +90,107 @@ Since there is no rotation of blocks in our model and all blocks are very simple
 
 
 // Solution
+
+// Using 2D array to simulate block drop and clear
+// 1D array to keep track of column heights utilized to count the number of lines cleared
+// function tetris(a) {
+//     let totalLines = 0;
+//     const height = 30;
+//     const width = 9;
+//     const gameField = Array.from( {length: height}, () => Array(width).fill(0));
+//     const columnHeights = Array(width).fill(0);
+
+//     for(const line of a) {
+//         const blockHeight = parseInt(line[0]);
+//         const dir = line[1];
+//         let offset = parseInt(line.slice(2));
+//         if(dir === 'L')  { offset *= -1};
+//         const col = offset + 4;
+
+//         let startRow = columnHeights[col];
+//         if(startRow + blockHeight >= height) return totalLines;
+//         // drop block (fill cells)
+//         for(let i = 0; i < blockHeight; i++)
+//         {
+//             gameField[startRow + i][col] = 1;
+//         }
+//         columnHeights[col] += blockHeight;   // tracking column heights
+//         // Clear Lines
+//         for(let r = 0; r < height; r++)
+//         {
+//             if(gameField[r].every(cell => cell === 1)) {
+//                 gameField.splice(r, 1);
+//                 gameField.push(Array(width).fill(0)); // add new row at the top
+//                 totalLines++;
+//                 for(let c = 0; c < width; c++)
+//                 {
+//                     columnHeights[c]--;
+//                 }
+//                 r--;
+//             }
+//         }
+//     }
+//     drawGame(gameField);
+//     return totalLines;
+// }
+
+// function drawGame(gameField) {
+//     const height = gameField.length;
+//     const width = gameField[0].length;
+
+//     console.log('-'.repeat(width + 2));
+
+//     for(let r = height - 1; r >= 0; r--) {
+//         let line = '|';
+//         for(let c = 0; c < width; c++) {
+//             line += gameField[r][c] ? '■' : '_';
+//         }
+//         line += '|';
+//         console.log(line);
+//     }
+//     console.log('-'.repeat(width + 2));
+// }
+
+
+// Using an array to keep track of block heights per column. 
+// Blocks drops and stacks
+// min represents bottom of the field and thus it represents number of lines the must have been cleared
 function tetris(a) {
-    let totalLines = 0;
     const height = 30;
     const width = 9;
-    const gameField = Array.from( {length: height}, () => Array(width).fill(0));
-    const columnHeights = Array(width).fill(0);
+    let columnHeights = Array(width).fill(0);
+    let max = 0, min = 0;
 
-    for(const line of a) {
-        const blockHeight = parseInt(line[0]);
-        const dir = line[1];
-        let offset = parseInt(line.slice(2));
-        if(dir === 'L')  { offset *= -1};
-        const col = offset + 4;
-
-        let startRow = columnHeights[col];
-        if(startRow + blockHeight >= height) return totalLines;
-        // drop block (fill cells)
-        for(let i = 0; i < blockHeight; i++)
-        {
-            gameField[startRow + i][col] = 1;
-        }
-        columnHeights[col] += blockHeight;   // tracking column heights
-        // Clear Lines
-        for(let r = 0; r < height; r++)
-        {
-            if(gameField[r].every(cell => cell === 1)) {
-                gameField.splice(r, 1);
-                gameField.push(Array(width).fill(0)); // add new row at the top
-                totalLines++;
-                for(let c = 0; c < width; c++)
-                {
-                    columnHeights[c]--;
-                }
-                r--;
-            }
-        }
+    for(let line of a) {
+        let pos = 4 + (line[1] === 'L' ? -1 : 1) * +line[2];
+        columnHeights[pos] += +line[0];
+        min = Math.min(...columnHeights);
+        max = Math.max(...columnHeights);
+        if(max - min >= 30) break;
     }
-    drawGame(gameField);
-    return totalLines;
+    console.log(columnHeights);
+    drawGame(columnHeights, height);
+    return min;
 }
 
 
-function drawGame(gameField) {
-    const height = gameField.length;
-    const width = gameField[0].length;
+function drawGame(gameField, height) {
+    const width = gameField.length;
 
     console.log('-'.repeat(width + 2));
-
-    for(let r = height - 1; r >= 0; r--) {
+    for(let r = height - 1; r >= 0; r--)
+    {
         let line = '|';
-        for(let c = 0; c < width; c++) {
-            line += gameField[r][c] ? '■' : '_';
+        for(let c = 0; c < width; c++)
+        {
+            line += (r < gameField[c]) ? '■' : '_'; 
         }
         line += '|';
-        console.log(line);
+        console.log(line);   
     }
     console.log('-'.repeat(width + 2));
 }
+
 
 
 // Test Codes
