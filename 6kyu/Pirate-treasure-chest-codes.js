@@ -85,6 +85,14 @@ function treasureCode(clue) {
 ** array.map(Number) to make sure given array contains numbers.
 */
 
+// More concise solution using .reduce method to apply gcd through array instead of the additional helper function. 
+function treasureCode(clue) {
+  const numRegex = /\d+/g
+  const numbers = clue.match(numRegex).map(Number);
+  const gcdFactor = numbers.reduce((a, b) => gcd(a,b));
+  return clue.replace(numRegex, n => +n / gcdFactor);
+}
+
 
 
 // Test Codes
