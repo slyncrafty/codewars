@@ -41,6 +41,24 @@ function allContinents(list) {
 }
 
 
+// Solution using Set
+function allContinents(list) {
+  const continentList = [ 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania' ]
+  const personsContinent = new Set(list.map(person => person.continent));
+  return (continentList.every(continent => personsContinent.has(continent)));
+}
+
+
+
+/*  Lesson Learned
+**  Check given object using inbuilt methods 
+**  
+**  Another solution using Set constructor to create a map of continents instead of a frequency map.
+**  Array.every() and Set.has() to check if the given two objects match 
+*/
+
+
+
 // Test Codes
 var list1 = [
   { firstName: 'Fatima', lastName: 'A.', country: 'Algeria', continent: 'Africa', age: 25, language: 'JavaScript' },
