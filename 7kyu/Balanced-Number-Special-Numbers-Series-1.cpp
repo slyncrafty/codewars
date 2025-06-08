@@ -56,28 +56,40 @@ Examples
 
 
 // Solution
-function balancedNum(number)
+#include <iostream>
+#include <string>
+using namespace std
+
+string balancedNum (unsigned long long int number )
 {
-  const numString = number.toString().split('').map(e => parseInt(e));
-  const len = numString.length;
+  string stringNum = std::to_string(number);
+  int len = stringNum.length();
   if(len <= 2) return "Balanced";
-  const mid = len / 2;
-  let range = (len % 2 === 0) ? mid - 1 : mid;
-  const leftSum = numString.slice(0, range).reduce((acc, curr) => acc + curr, 0);
-  const rightSum = numString.slice(-range).reduce((acc, curr) => acc + curr, 0);
-  return (leftSum === rightSum) ? "Balanced" : "Not Balanced"
+  
+  int leftSum {0}, rightSum{0}, mid = len / 2;
+  
+  int range = mid;
+  if(len % 2 == 0) {
+    range = mid - 1; 
+  } 
+  
+  for(int i = 0; i < range; i++) {
+    leftSum += stringNum[i] - '0';
+  }
+  for(int j = mid+1; j < len; j++) {
+    rightSum += stringNum[j] - '0';
+  }
+  return (leftSum == rightSum) ? "Balanced" : "Not Balanced";
 }
 
 
 
 // Test Codes
-console.log(balancedNum(7), 'Balanced')
-console.log(balancedNum(959), 'Balanced')
-console.log(balancedNum(13), 'Balanced')
-console.log(balancedNum(432), 'Not Balanced')
-console.log(balancedNum(424), 'Balanced')
-console.log(balancedNum(1024), 'Not Balanced')
-console.log(balancedNum(66545), 'Not Balanced')
-console.log(balancedNum(295591), 'Not Balanced')
-console.log(balancedNum(1230987), 'Not Balanced')
-console.log(balancedNum(56239814), 'Balanced')
+int main() {
+    std::cout << balancedNum(7) << "\n";          // Balanced
+    std::cout << balancedNum(295591) << "\n";     // Not Balanced
+    std::cout << balancedNum(959) << "\n";        // Balanced
+    std::cout << balancedNum(27102983) << "\n";   // Not Balanced
+    
+    return 0;
+}
