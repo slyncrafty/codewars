@@ -47,6 +47,29 @@ function findOddNames(list) {
 
 
 
+function findOddNames(list) {
+    return list.filter(( {firstName }) => {
+        let isOdd = 0;
+        for(let i = 0; i < firstName.length; i++) {
+            // bitwise AND( charCodeAt(i) & 1 is 0 for even, 1 for odd )
+            isOdd ^= firstName.charCodeAt(i) & 1;
+        }
+        return isOdd === 1; // truthy(1) means the sum is odd
+    })
+}
+
+
+
+/*  Lesson Learned
+**  The first method uses .split(), and loop through again to get sum are costly and allocated a new array. 
+**  
+**  The second solution is faster and more efficient
+**  Using BITWISE operations allows to track parity without sum.
+**  By checking the bitwise AND with 1(x&1) extract th LSB of x and 
+**  combined with bitwise XOR (^) toggle/track the right-hand side without modulo(%) operations.
+
+
+
 // Test Codes
 var list1 = [
   { firstName: 'Aba', lastName: 'N.', country: 'Ghana', continent: 'Africa', age: 21, language: 'Python' },
