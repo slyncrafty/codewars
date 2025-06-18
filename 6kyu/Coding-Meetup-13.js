@@ -1,5 +1,5 @@
 /* ========== ========== ========== ========== ========== ==========*/
-// https://www.codewars.com/kata/coding-meetup-number-12-higher-order-functions-series-find-github-admins
+// https://www.codewars.com/kata/coding-meetup-number-13-higher-order-functions-series-is-the-meetup-language-diverse
 /* ========== ========== ========== ========== ========== ==========*/
 /*
 Coding Meetup #13 - Higher-Order Functions Series - Find GitHub admins
@@ -60,8 +60,8 @@ function isLanguageDiverse(list) {
 // Worst performance
 function isLanguageDiverse(list) {
     list = list.map(person => person.language);
-    const freqMap = [...new Set(list)].map( p => p.filter(e => e === p).length);
-    return Math.max(...num) <= Math.min(...num) * 2
+    const freqMap = [...new Set(list)].map( p => list.filter(e => e === p).length);
+    return Math.max(...freqMap) <= Math.min(...freqMap) * 2
 }
 
 /*
