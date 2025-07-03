@@ -2,7 +2,7 @@
 // https://www.codewars.com/kata/55befc42bfe4d13ab1000007/
 /* ========== ========== ========== ========== ========== ==========*/
 /*
-Friday the 13th Birthday
+Linked Lists - Get Nth Node
 
 Description:
 Implement a GetNth() function that takes a linked list and an integer index and returns the node stored at the Nth index position. GetNth() uses the C numbering convention that the first node is index 0, the second is index 1, ... and so on.
