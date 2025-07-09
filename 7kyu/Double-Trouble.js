@@ -24,6 +24,8 @@ Return the resulting array.
 
 
 
+// Solution
+
 function trouble(x, t){
   let i = 0;
   while (i < x.length - 1) {
@@ -34,6 +36,26 @@ function trouble(x, t){
   return x;
 }
 
+
+
+// using a new array to return satisfying array elements.
+function trouble(x, t){
+  if(x.length === 0) return [];
+  const result = [x[0]];
+  for(let i = 1; i < x.length; i++) {
+    const val = x[i]
+    if(result[result.length - 1] + val === t) continue;
+    result.push(val);
+  }
+  return result;
+}
+
+
+
+/** Lessons Learned
+ *  The version with building a new array doesn't use .splice() to shift elements, which can run o(n^2) in worst case.
+ *  This version runs i O(n) time with extra memory for the new output array.
+ */
 
 
 console.log(trouble([1, 3, 5, 6, 7, 4, 3], 7), [1, 3, 5, 6, 7, 4]);
