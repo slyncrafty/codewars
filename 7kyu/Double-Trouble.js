@@ -3,8 +3,9 @@
 /* ========== ========== ========== ========== ========== ==========*/
 /*
 Double Trouble
-ss
+
 Description:
+
 Given an array of integers (x), and a target (t), you must find out if any two consecutive numbers in the array sum to t. If so, remove the second number.
 
 Example:
