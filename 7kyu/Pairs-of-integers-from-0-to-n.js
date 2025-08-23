@@ -32,10 +32,10 @@ function generatePairs(n) {
 }
 
 
-
+// using Array.from 
 const generatePairs = (n) => 
-    Array.from( {length: n+1}, (_,a) => 
-        Array.from ( {length: n - a + 1 }, (_,j) => [a, a+j]))
+    Array.from( { length: n + 1 }, (_,a) => 
+        Array.from ( { length: n - a + 1 }, (_,b) => [a, a + b]))
     .flat();
 
 
