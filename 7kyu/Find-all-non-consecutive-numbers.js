@@ -47,6 +47,8 @@ const allNonConsecutive = (arr) =>
     arr.map((n,i) => ({i, n}))
         .filter( ({i, n}) => i > 0 && arr[i] !== arr[i-1]+1)
 
+
+        
 // Test Codes
 const results = allNonConsecutive([1,2,3,4,6,7,8,10]);
 const deepEqualObj = (a, b) => {
