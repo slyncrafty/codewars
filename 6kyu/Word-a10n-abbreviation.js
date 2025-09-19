@@ -44,6 +44,13 @@ function abbreviate(string) {
 }
 
 
+// Using regex to handle words length >= 4
+function abbreviate(string) {
+  return string
+    .replace(/[a-zA-Z]{4,}/gi, w => w[0] + (w.length - 2) + w[w.length - 1]);
+}
+
+
 
 // Test Codes
 console.log(abbreviate("elephant-rides are really fun!")); // "e6t-r3s are r4y fun!"
