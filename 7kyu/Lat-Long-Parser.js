@@ -26,7 +26,6 @@ function latLng(raw) {
 		let value = parseFloat(match[1]);
 		let direction = match[2];
 		if (direction === 'S' || direction === 'W') value = -Math.abs(value);
-		console.log(direction);
 		coordinates.push(value);
 	}
 	return coordinates;
@@ -35,11 +34,17 @@ function latLng(raw) {
 // Test Codes
 const doTest = (a, b) => {
 	const actual = latLng(a);
-	if (actual === b) return true;
-	else if (Array.isArray(actual) && Array.isArray(b) && a.length === b.length) {
-		return actual.every((e, i) => e === b[i]);
+	let result = false;
+	if (actual === b) {
+		result = true;
+	} else if (
+		Array.isArray(actual) &&
+		Array.isArray(b) &&
+		actual.length === b.length
+	) {
+		result = actual.every((e, i) => e === b[i]);
 	}
-	return false;
+	console.log(`${result ? 'Correct!' : 'Incorrect!'}`);
 };
 doTest('26.8206 N, 30.8025 E', [26.8206, 30.8025]);
 doTest('39.7392 N, 104.9903 W', [39.7392, -104.9903]);
