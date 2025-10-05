@@ -56,6 +56,49 @@ function largestRectangleInGrid(matrix) {
 	return maxArea;
 }
 
+function largestRectangleInGrid(matrix) {
+	let n = matrix.length,
+		m = matrix[0].length;
+	// heights will store histogram heights
+	let heights = new Array(m).fill(0);
+	let answer = 0;
+
+	for (let i = 0; i < n; i++) {
+		for (let j = 0; j < m; j++) {
+			if (matrix[i][j] === 1) heights[j]++;
+			else heights[j] = 0;
+		}
+		answer = Math.max(answer, getMaxArea(heights));
+	}
+	return answer;
+}
+
+// find the maximum area of rectangle in a histogram
+function getMaxArea(heights) {
+	let n = heights.length;
+	let s = [];
+	let result = 0;
+
+	for (let i = 0; i < n; i++) {
+		// process all bars that are higher or equal to current
+		while (s.length > 0 && heights[s[s.length - 1]] >= heights[i]) {
+			let tp = s.pop();
+			// width between previous smaller (stack top) and current index
+			let width = s.length === 0 ? i : i - s[s.length - 1] - 1;
+			result = Math.max(result, heights[tp] * width);
+		}
+		s.push(i);
+	}
+	// Process remaining bars in stack
+	while (s.length > 0) {
+		let tp = s.pop();
+		let width = s.length === 0 ? n : n - s[s.length - 1] - 1;
+		result = Math.max(result, heights[tp] * width);
+	}
+
+	return result;
+}
+
 // Test Codes
 console.log(
 	largestRectangleInGrid([
