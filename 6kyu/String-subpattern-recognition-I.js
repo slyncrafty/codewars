@@ -32,11 +32,23 @@ function hasSubpattern(string) {
 	return false;
 }
 
+// String rotation method - optimized
+/**
+ * The key insight is that if a string s has period p, then:
+ * s = pattern + pattern + ... + pattern (repeated k times)
+ * When we create s + s, the original s appears at position p (the length of the pattern)
+ * If s is not periodic, s only appears at positions 0 and s.length in s + s
+ */
+function hasSubpattern(string) {
+	return (string + string).indexOf(string, 1) != string.length;
+}
+
 // Test Codes
 const strictEqual = (a, b) => {
 	if (a === b) console.log('Correct!');
 	else console.log('Incorrect!', a, b);
 };
+
 strictEqual(hasSubpattern('a'), false, 'hasSubpattern("a")');
 strictEqual(hasSubpattern('aaaa'), true, 'hasSubpattern("aaaa")');
 strictEqual(hasSubpattern('abcd'), false, 'hasSubpattern("abcd")');
