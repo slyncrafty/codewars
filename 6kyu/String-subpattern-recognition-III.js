@@ -31,6 +31,7 @@ function hasSubpattern(string) {
 
 	const gcd = (a, b) => (b === 0 ? 1 : gcd(b, a % b));
 	let g = 0;
+	// get GCD of all character frequencies
 	for (const count of freqMap.values()) {
 		g = gcd(count, g);
 	}
@@ -39,6 +40,7 @@ function hasSubpattern(string) {
 	let result = [];
 	const sortedChars = Array.from(charMap.keys()).sorted();
 	for (const char of sortedChars) {
+		// find the times char appears in the base pattern
 		const str = char.repeat(freqMap.get(char) / g);
 		result.push(...str);
 	}
