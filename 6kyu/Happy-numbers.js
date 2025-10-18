@@ -18,6 +18,7 @@ While 3 is not, and would give us an infinite sequence: 3, 9, 81, 65, 61, 37, 58
 */
 
 // Solution
+// Using Floyd’s cycle detection (O(1) space)
 function isHappy(n) {
 	const next = (x) => {
 		let sum = 0;
