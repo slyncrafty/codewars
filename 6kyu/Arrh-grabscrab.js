@@ -21,30 +21,36 @@ Return matches in the same order as in the dictionary. Return an empty array if 
 */
 
 // Solution
+// function grabscrab(anagram, dictionary) {
+// 	const createFreqMap = (str) => {
+// 		const freqMap = {};
+// 		for (const ch of str) {
+// 			freqMap[ch] = (freqMap[ch] || 0) + 1;
+// 		}
+// 		return freqMap;
+// 	};
+
+// 	const deepEqualArray = (a, b) => {
+// 		if (a === b) return true;
+// 		const keysA = Object.keys(a);
+// 		const keysB = Object.keys(b);
+// 		if (keysA.length !== keysB.length) return false;
+// 		return keysA.every((key) => a[key] === b[key]);
+// 	};
+
+// 	const anagramMap = createFreqMap(anagram);
+// 	const result = [];
+// 	for (const word of dictionary) {
+// 		const wordMap = createFreqMap(word);
+// 		if (deepEqualArray(anagramMap, wordMap)) result.push(word);
+// 	}
+// 	return result;
+// }
+
+// Simple and better
 function grabscrab(anagram, dictionary) {
-	const createFreqMap = (str) => {
-		const freqMap = {};
-		for (const ch of str) {
-			freqMap[ch] = (freqMap[ch] || 0) + 1;
-		}
-		return freqMap;
-	};
-
-	const deepEqualArray = (a, b) => {
-		if (a === b) return true;
-		const keysA = Object.keys(a);
-		const keysB = Object.keys(b);
-		if (keysA.length !== keysB.length) return false;
-		return keysA.every((key) => a[key] === b[key]);
-	};
-
-	const anagramMap = createFreqMap(anagram);
-	const result = [];
-	for (const word of dictionary) {
-		const wordMap = createFreqMap(word);
-		if (deepEqualArray(anagramMap, wordMap)) result.push(word);
-	}
-	return result;
+	const sortedAnagram = anagram.split('').sort().join();
+	return dictionary.filter((e) => e.split('').sort().join() === sortedAnagram);
 }
 
 // Test Codes
