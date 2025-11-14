@@ -30,26 +30,51 @@ X#X1#X9XX
 */
 
 // Solution
+// function catchThief(queue) {
+// 	const watched = [];
+// 	for (let i = 0; i < queue.length; i++) {
+// 		const n = Number(queue[i]);
+// 		if (n >= 1 && n <= 9) {
+// 			watched.push({ start: i, end: n });
+// 		}
+// 	}
+// 	let caught = 0;
+// 	for (let i = 0; i < queue.length; i++) {
+// 		if (queue[i] === 'X') {
+// 			for (const p of watched) {
+// 				if (Math.abs(p.start - i) <= p.end) {
+// 					caught++;
+// 					break;
+// 				}
+// 			}
+// 		}
+// 	}
+// 	return caught;
+// }
+
+// o(n)
 function catchThief(queue) {
-	const watched = [];
-	for (let i = 0; i < queue.length; i++) {
-		const n = Number(queue[i]);
-		if (n >= 1 && n <= 9) {
-			watched.push({ start: i, end: n });
-		}
-	}
-	let caught = 0;
-	for (let i = 0; i < queue.length; i++) {
-		if (queue[i] === 'X') {
-			for (const p of watched) {
-				if (Math.abs(p.start - i) <= p.end) {
-					caught++;
-					break;
+	const n = queue.length;
+	const caught = new Array(n).fill(false);
+	let result = 0;
+
+	for (let i = 0; i < n; i++) {
+		const ch = queue[i];
+		if (ch >= '1' && ch <= '9') {
+			const range = Number(ch);
+			const left = Math.max(0, i - range);
+			const right = Math.min(n - 1, i + range);
+
+			for (let j = left; j <= right; j++) {
+				if (queue[j] === 'X' && !caught[j]) {
+					caught[j] = true;
+					result++;
 				}
 			}
 		}
 	}
-	return caught;
+
+	return result;
 }
 
 // Test Codes
