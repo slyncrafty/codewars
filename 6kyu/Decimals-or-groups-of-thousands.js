@@ -21,17 +21,22 @@ function sumUpNumbers(arr) {
 	for (const num of arr) {
 		sum += parseNumber(num);
 	}
-	return sum.toLocaleString('en-US');
+	return sum.toLocaleString('en-US', {
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2,
+	});
 }
 
 const parseNumber = (str) => {
-	const hasComma = str.includes(',');
-	const hasDot = str.includes('.');
-
-	if (!hasComma && !hasDot) return Number(str);
 	const lastComma = str.lastIndexOf(',');
 	const lastDot = str.lastIndexOf('.');
-	const isEUFormat = lastComma > lastDot;
+	// number with no separators
+	if (lastComma === -1 && lastDot === -1) return Number(str);
+	// no dot but comma followed by 2 or less digits mean decimal(EU format)
+	if (lastDot === -1 && str.length - 1 - lastComma < 3)
+		return Number(str.replace(/\,/g, '.'));
+	// determine for numbers that have both dot and comma
+	const isEUFormat = lastComma > lastDot && lastDot > -1;
 	if (isEUFormat) {
 		return Number(str.replace(/\./g, '').replace(',', '.'));
 	} else {
@@ -50,3 +55,4 @@ assertEquals(
 	sumUpNumbers(['1,111,234.34', '1.222.324,2', '14']),
 	'2,333,572.54'
 );
+assertEquals(sumUpNumbers(['4,444,999', '8.234,1', '14,56']), '4,453,247.66');
