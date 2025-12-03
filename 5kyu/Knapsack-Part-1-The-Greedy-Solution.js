@@ -65,8 +65,8 @@ function knapsack(capacity, items) {
 }
 
 // Test Codes
-const doTest = (a, expected) => {
-	const actual = knapsack(a);
+const doTest = (a, b, expected) => {
+	const actual = knapsack(a, b);
 	const ok = JSON.stringify(actual) === JSON.stringify(expected);
 	if (ok) {
 		console.log('✔ PASS:', `${actual} === ${expected}`);
