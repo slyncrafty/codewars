@@ -58,17 +58,12 @@ class Hangman {
 		this.state = Array(word.length).fill('_');
 		this.chances = 6;
 		this.track = '';
+		this.seen = new Set();
 		this.gameOn = true;
 	}
 
 	guess(letter) {
 		if (!this.gameOn) return 'The game has ended.';
-
-		if (this.chances === 0) {
-			this.gameOn = false;
-			return `You got hung! The word was ${this.word}.`;
-		}
-
 		if (this.word.includes(letter)) {
 			for (let i = 0; i < this.word.length; i++) {
 				if (this.word[i] === letter) {
@@ -80,8 +75,14 @@ class Hangman {
 				return `You found the word! (${this.word})`;
 			}
 		} else {
-			this.chances--;
-			this.track += letter;
+			if (this.chances === 0) {
+				this.gameOn = false;
+				return `You got hung! The word was ${this.word}.`;
+			}
+			if (!this.seen.has(letter)) {
+				this.chances--;
+				this.track += letter;
+			}
 		}
 		return this.gameState();
 	}
