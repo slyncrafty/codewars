@@ -19,29 +19,57 @@ Your task is to write a funtion luck_check(str), which returns true/True if argu
 */
 
 // Solution
+// function luckCheck(ticket) {
+// 	for (const c of ticket) {
+// 		if (c < '0' || c > '9') {
+// 			throw new Error('Invalid ticket');
+// 		}
+// 	}
+
+// 	const n = ticket.length;
+// 	const even = n % 2 === 0;
+// 	let left, right;
+// 	if (even) {
+// 		left = splitSum(ticket.slice(0, n / 2));
+// 		right = splitSum(ticket.slice(n / 2));
+// 	} else {
+// 		left = splitSum(ticket.slice(0, (n - 1) / 2));
+// 		right = splitSum(ticket.slice((n + 1) / 2));
+// 	}
+// 	return left === right;
+// }
+
+// const splitSum = (str) => {
+// 	return str.split('').reduce((a, c) => a + Number(c), 0);
+// };
+
+// Solution without creating new array
 function luckCheck(ticket) {
-	for (const c of ticket) {
-		if (c < '0' || c > '9') {
+	let leftSum = 0,
+		rightSum = 0;
+
+	let i = 0;
+	let j = ticket.length - 1;
+	// Odd length - middle character validity check
+	if (j % 2 === 0 && (ticket[j / 2] < '0' || ticket[j / 2] > '9')) {
+		throw new Error('Invalid ticket');
+	}
+
+	while (i < j) {
+		const left = ticket[i];
+		const right = ticket[j];
+
+		if (left < '0' || left > '9' || right < '0' || right > '9') {
 			throw new Error('Invalid ticket');
 		}
-	}
 
-	const n = ticket.length;
-	const even = n % 2 === 0;
-	let left, right;
-	if (even) {
-		left = splitSum(ticket.slice(0, n / 2));
-		right = splitSum(ticket.slice(n / 2));
-	} else {
-		left = splitSum(ticket.slice(0, (n - 1) / 2));
-		right = splitSum(ticket.slice((n + 1) / 2));
+		leftSum += Number(left);
+		rightSum += Number(right);
+		i++;
+		j--;
 	}
-	return left === right;
+	return leftSum === rightSum;
 }
-
-const splitSum = (str) => {
-	return str.split('').reduce((a, c) => a + Number(c), 0);
-};
 
 // Test Codes
 function throws(fn) {
