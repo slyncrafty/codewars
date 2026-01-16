@@ -19,16 +19,22 @@ Examples
 */
 
 // Solution
+// function findOdd(A) {
+// 	const counts = new Map();
+// 	for (const n of A) {
+// 		counts.set(n, (counts.get(n) || 0) + 1);
+// 	}
+// 	for (const [key, value] of counts) {
+// 		if (value % 2 === 1) {
+// 			return key;
+// 		}
+// 	}
+// }
+
+// XOR Trick
+// Since there will be only one that appears an odd number of times.
 function findOdd(A) {
-	const counts = new Map();
-	for (const n of A) {
-		counts.set(n, (counts.get(n) || 0) + 1);
-	}
-	for (const [key, value] of counts) {
-		if (value % 2 === 1) {
-			return key;
-		}
-	}
+	return A.reduce((a, c) => a ^ c, 0);
 }
 
 // Test Codes
