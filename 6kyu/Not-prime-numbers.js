@@ -9,25 +9,42 @@ You are given two positive integers a and b (a < b <= 20000). Complete the funct
 */
 
 // Solution
-function notPrimes(a, b) {
-	const result = [];
-	const allowed = new Set(['2', '3', '5', '7']);
-	for (let i = a; i < b; i++) {
-		if (![...String(i)].every((e) => allowed.has(e))) continue;
-		if (!isPrime(i)) result.push(i);
-	}
-	return result;
-}
+// function notPrimes(a, b) {
+// 	const result = [];
+// 	const allowed = new Set(['2', '3', '5', '7']);
+// 	for (let i = a; i < b; i++) {
+// 		if (![...String(i)].every((e) => allowed.has(e))) continue;
+// 		if (!isPrime(i)) result.push(i);
+// 	}
+// 	return result;
+// }
 
-const isPrime = (n) => {
-	if (n <= 1) return false;
-	if (n === 2) return true;
-	if (n % 2 === 0) return false;
-	for (let i = 3; i <= Math.sqrt(n); i += 2) {
-		if (n % i === 0) return false;
+// const isPrime = (n) => {
+// 	if (n <= 1) return false;
+// 	if (n === 2) return true;
+// 	if (n % 2 === 0) return false;
+// 	for (let i = 3; i <= Math.sqrt(n); i += 2) {
+// 		if (n % i === 0) return false;
+// 	}
+// 	return true;
+// };
+
+// Using regex
+// avoid string, array
+function notPrimes(a, b) {
+	let arr = [];
+	for (let i = a; i < b; i++) {
+		if (!/[014689]/.test(i)) {
+			for (let j = 2; j * j <= i; j++) {
+				if (i % j === 0) {
+					arr.push(i);
+					break;
+				}
+			}
+		}
 	}
-	return true;
-};
+	return arr;
+}
 
 // Test Codes
 const deepEqual = (actual, expected) => {
