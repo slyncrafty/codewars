@@ -23,8 +23,12 @@ const sort = (initialArray, sortingArray) => {
 	return res;
 };
 
+// const sort = (initialArray, sortingArray) => {
+// 	return [...initialArray].map((_, i) => initialArray[sortingArray.indexOf(i)]);
+// };
+
 // Test Codes
-const deepEqual = (a, b) => {
+const deepEqual = (a, b, msg) => {
 	const equal = (a, b) => {
 		if (a === b) return true;
 		else if (Array.isArray(a) && Array.isArray(b)) {
@@ -35,8 +39,10 @@ const deepEqual = (a, b) => {
 	};
 
 	if (equal(a, b)) console.log('✅Test Passed');
-	else console.log('❌Test Failed');
+	else console.log('❌Test Failed', msg);
 };
+
+deepEqual(sort([], []), [], 'For initialArray = [], sortingArray = []');
 deepEqual(
 	sort(['x', 'y', 'z'], [1, 2, 0]),
 	['z', 'x', 'y'],
